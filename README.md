@@ -49,9 +49,8 @@ You can override any settings in a separate appsettings.local.json file (useful 
 
 ## ✅ How to Use
    
-    dotnet build
-      
-    dotnet run
+    # dotnet build
+    # dotnet run
           
 ## 🧾 Use Cases
 
