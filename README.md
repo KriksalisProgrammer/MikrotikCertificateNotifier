@@ -42,9 +42,7 @@ You can override any settings in a separate appsettings.local.json file (useful 
 ## 📦 Dependencies
 
     - .NET 6+
-
-    - tik4net
-
+    - Tik4net
     - Newtonsoft.Json
 
 ## ✅ How to Use
@@ -54,11 +52,11 @@ You can override any settings in a separate appsettings.local.json file (useful 
           
 ## 🧾 Use Cases
 
-    Monitor client VPN or SSTP certificate validity
+    - Monitor client VPN or SSTP certificate validity
 
-    Prevent unexpected downtime due to expired certificates
+    - Prevent unexpected downtime due to expired certificates
 
-    Automate routine checks via scheduled task or cron
+    - Automate routine checks via scheduled task or cron
     
 ## 📌 License
 
