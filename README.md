@@ -1,12 +1,12 @@
 # 📡 Mikrotik Certificate Notifier
 
-A simple console application that connects to a MikroTik router, checks for SSL certificates that are about to expire, and sends notifications via Telegram.
+A simple console application that connects to a MikroTik router, checks for certificates that are about to expire, and sends notifications via Telegram.
 
 ## 🚀 Features
 
 - ✅ Connects to MikroTik using the [tik4net](https://github.com/danikf/tik4net) library
 - 📅 Checks expiration dates of installed certificates
-- ⚠️ Sends alerts via Telegram if a certificate is about to expire
+- ⚠️ Sends alerts via Telegram if a certificate is close to expiring
 - 🛠 Fully configurable via `appsettings.json`
 
 ## 🔧 Configuration
