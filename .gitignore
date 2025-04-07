@@ -1,0 +1,27 @@
+.vs/
+# Build
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# Secrets / local config
+appsettings.local.json
+.env
+
+# OS
+.DS_Store
+Thumbs.db
