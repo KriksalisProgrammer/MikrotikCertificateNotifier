@@ -41,17 +41,18 @@ You can override any settings in a separate appsettings.local.json file (useful 
    4. Use @userinfobot to get your chat ID
 ## 📦 Dependencies
 
-    .NET 6+
+    - .NET 6+
 
-    tik4net
+    - tik4net
 
-    Newtonsoft.Json
+    - Newtonsoft.Json
 
 ## ✅ How to Use
-
-dotnet build
-dotnet run
-
+   
+    dotnet build
+      
+    dotnet run
+          
 ## 🧾 Use Cases
 
     Monitor client VPN or SSTP certificate validity
@@ -59,6 +60,7 @@ dotnet run
     Prevent unexpected downtime due to expired certificates
 
     Automate routine checks via scheduled task or cron
+    
 ## 📌 License
 
 This project is licensed under the MIT License.
