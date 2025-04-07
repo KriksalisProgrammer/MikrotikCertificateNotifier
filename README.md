@@ -28,6 +28,7 @@ Create an `appsettings.json` file in the root of the project with the following 
     "DaysBeforeExpiration": 30
   }
 }
+```
 You can override any settings in a separate appsettings.local.json file (useful for secrets and local development).
 ## 💬 Telegram Setup
 
