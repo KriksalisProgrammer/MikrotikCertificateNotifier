@@ -28,3 +28,36 @@ Create an `appsettings.json` file in the root of the project with the following 
     "DaysBeforeExpiration": 30
   }
 }
+You can override any settings in a separate appsettings.local.json file (useful for secrets and local development).
+## 💬 Telegram Setup
+
+   1. Create a bot via @BotFather
+
+   2. Get your bot token
+
+   3. Start a chat with your bot
+
+   4. Use @userinfobot to get your chat ID
+## 📦 Dependencies
+
+    .NET 6+
+
+    tik4net
+
+    Newtonsoft.Json
+
+## ✅ How to Use
+
+dotnet build
+dotnet run
+
+## 🧾 Use Cases
+
+    Monitor client VPN or SSTP certificate validity
+
+    Prevent unexpected downtime due to expired certificates
+
+    Automate routine checks via scheduled task or cron
+## 📌 License
+
+This project is licensed under the MIT License.
