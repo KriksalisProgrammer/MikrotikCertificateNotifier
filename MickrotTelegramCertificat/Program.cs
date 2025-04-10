@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MickrotTelegramCertificat;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using tik4net;
 using tik4net.Objects;  
@@ -13,20 +14,29 @@ namespace MikrotikCertificateNotifier
 {
     class Program
     {
+        private static ILogger<Program> _logger;
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Запуск проверки сертификатов Mikrotik...");
+
+            using var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder
+                    .AddConsole()
+                    .SetMinimumLevel(LogLevel.Information);
+            });
+
+            _logger = loggerFactory.CreateLogger<Program>();
+
+            _logger.LogInformation("🔍 Запуск проверки сертификатов Mikrotik...");
 
             try
             {
-
                 IConfiguration config = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: false)
                     .AddJsonFile("appsettings.local.json", optional: true)
                     .AddEnvironmentVariables()
                     .Build();
-
 
                 var telegramSettings = config.GetSection("Telegram");
                 var mikrotikSettings = config.GetSection("Mikrotik");
@@ -43,19 +53,17 @@ namespace MikrotikCertificateNotifier
                     string.IsNullOrEmpty(host) || string.IsNullOrEmpty(user) ||
                     string.IsNullOrEmpty(password))
                 {
-                    throw new Exception("Отсутствуют необходимые настройки в конфигурационном файле");
+                    throw new Exception("❌ Отсутствуют необходимые настройки в конфигурационном файле");
                 }
 
-                Console.WriteLine("Подключение к Mikrotik...");
+                _logger.LogInformation("🔌 Подключение к Mikrotik...");
 
                 using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
                 {
                     connection.Open(host, user, password);
-
-                    Console.WriteLine("Подключено успешно. Получение списка сертификатов...");
+                    _logger.LogInformation("✅ Подключено успешно. Получение списка сертификатов...");
 
                     var certificates = connection.LoadList<Certificate>();
-
                     bool foundExpiringSoon = false;
 
                     foreach (var cert in certificates)
@@ -78,7 +86,7 @@ namespace MikrotikCertificateNotifier
                                                  $"Осталось дней: {daysLeft}\n" +
                                                  $"Дата окончания: {expiryDate:dd.MM.yyyy}";
 
-                                Console.WriteLine(message);
+                                _logger.LogWarning(message);
                                 await SendTelegramMessageAsync(botToken, chatId, message);
                             }
                         }
@@ -86,17 +94,16 @@ namespace MikrotikCertificateNotifier
 
                     if (!foundExpiringSoon)
                     {
-                        Console.WriteLine("Истекающих сертификатов не найдено");
+                        _logger.LogInformation("✅ Истекающих сертификатов не найдено");
                     }
 
                     connection.Close();
-                    Console.WriteLine("Проверка завершена");
+                    _logger.LogInformation("✅ Проверка завершена");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка: {ex.Message}");
-                Console.WriteLine($"Стек вызовов: {ex.StackTrace}");
+                _logger.LogError(ex, "❌ Произошла ошибка при выполнении проверки");
             }
         }
 
@@ -121,12 +128,12 @@ namespace MikrotikCertificateNotifier
                     var response = await client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
 
-                    Console.WriteLine("Сообщение в Telegram отправлено успешно");
+                    _logger.LogInformation("📨 Сообщение в Telegram отправлено успешно");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при отправке в Telegram: {ex.Message}");
+                _logger.LogError(ex, "❌ Ошибка при отправке сообщения в Telegram");
             }
         }
     }
