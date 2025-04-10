@@ -8,6 +8,7 @@ A simple console application that connects to a MikroTik router, checks for cert
 - 📅 Checks expiration dates of installed certificates
 - ⚠️ Sends alerts via Telegram if a certificate is close to expiring
 - 🛠 Fully configurable via `appsettings.json`
+- 📋 Built-in logging to track process and errors
 
 ## 🔧 Configuration
 
@@ -39,6 +40,9 @@ You can override any settings in a separate appsettings.local.json file (useful 
    3. Start a chat with your bot
 
    4. Use @userinfobot to get your chat ID
+## 📋 Logging
+
+All application steps and potential errors are logged to the console. You can easily redirect output to a file or integrate a logging library such as Serilog or NLog for more advanced scenarios.
 ## 📦 Dependencies
 
     - .NET 6+
